@@ -1,0 +1,1055 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>VertexCloud-Capital - Invest in stocks, ETFs, crypto, agriculture and real estate</title>
+<meta name="description" content="Stocks, ETFs, crypto, agriculture and real estate in one account.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;800&family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500&display=swap" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<script>tailwind.config = { corePlugins: { preflight: false } };</script>
+<style>
+/* FinVest - matured blue & white. Serif headings, hairline borders, photo-led layout. */
+:root{
+  --navy:#0f2747; --blue:#1d4a85; --blue-2:#2f6bb0; --sky:#eaf1fa; --sky-2:#f5f8fc;
+  --ink:#14233b; --muted:#5d6e87; --line:#d8e2ef; --white:#fff;
+  --up:#1b7f4b; --down:#b3392f; --amber:#b9770e;
+  --serif:'Fraunces',Georgia,serif; --sans:'Figtree',system-ui,sans-serif;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:var(--sans);color:var(--ink);background:#fff;margin:0;-webkit-font-smoothing:antialiased}
+h1,h2,h3,h4{font-family:var(--serif);font-weight:600;letter-spacing:-.01em;color:var(--navy);margin:0}
+a{color:inherit;text-decoration:none}
+img{max-width:100%;display:block}
+.wrap{max-width:1180px;margin:0 auto;padding:0 20px}
+.sec{padding:88px 0}
+.sec.alt{background:var(--sky-2)}
+.sec.dark{background:var(--navy);color:#dbe6f5}
+.sec.dark h2,.sec.dark h3{color:#fff}
+.eyebrow{font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--blue-2);margin-bottom:12px;display:block}
+.sec.dark .eyebrow{color:#8fb4e6}
+.h2{font-size:clamp(28px,4vw,42px);line-height:1.12;max-width:720px}
+.lead{color:var(--muted);font-size:17px;line-height:1.65;max-width:640px;margin-top:14px}
+.sec.dark .lead{color:#b9cae2}
+.sec-head{margin-bottom:46px}
+.center{text-align:center}.center .h2,.center .lead{margin-left:auto;margin-right:auto}
+
+/* buttons */
+.btn-fv{display:inline-flex;align-items:center;gap:8px;padding:13px 24px;border-radius:8px;font-weight:700;font-size:15px;border:1.5px solid var(--blue);background:var(--blue);color:#fff;transition:.2s;cursor:pointer}
+.btn-fv:hover{background:var(--navy);border-color:var(--navy);transform:translateY(-1px)}
+.btn-fv.ghost{background:transparent;color:var(--blue)}
+.btn-fv.ghost:hover{background:var(--blue);color:#fff}
+.btn-fv.white{background:#fff;color:var(--navy);border-color:#fff}
+.btn-fv.white:hover{background:var(--sky)}
+.btn-fv.sm{padding:9px 16px;font-size:14px}
+.btn-fv.block{width:100%;justify-content:center}
+
+/* announcement + nav */
+.announce{background:var(--navy);color:#cfdcf0;font-size:13px;text-align:center;padding:9px 12px}
+.announce b{color:#fff}
+.nav{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.96);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.nav-in{display:flex;align-items:center;justify-content:space-between;height:72px}
+.logo{font-family:var(--serif);font-size:26px;font-weight:700;color:var(--navy);display:flex;align-items:center;gap:8px}
+.logo i{display:grid;place-items:center;width:32px;height:32px;border-radius:8px;background:var(--blue);color:#fff;font-style:normal;font-size:17px}
+.nav-links{display:flex;gap:30px;font-weight:600;font-size:15px;color:#2b3f5e}
+.nav-links a:hover{color:var(--blue-2)}
+.nav-cta{display:flex;gap:10px;align-items:center}
+.burger{display:none;background:none;border:1px solid var(--line);border-radius:8px;width:42px;height:42px;font-size:20px;color:var(--navy)}
+.drawer{position:fixed;inset:0;background:rgba(15,39,71,.55);z-index:80;display:none}
+.drawer.open{display:block}
+.drawer-box{position:absolute;right:0;top:0;bottom:0;width:min(320px,86vw);background:#fff;padding:24px;display:flex;flex-direction:column;gap:6px}
+.drawer-box a{padding:13px 4px;border-bottom:1px solid var(--line);font-weight:600}
+.hide-d{display:none}
+@media(max-width:900px){.nav-links,.nav-cta .hide-m{display:none}.nav-cta .hide-d{display:inline-flex}.burger{display:block}}
+
+/* hero */
+.hero{padding:70px 0 0;background:linear-gradient(180deg,var(--sky) 0%,#fff 100%);overflow:hidden}
+.hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:50px;align-items:center}
+.hero h1{font-size:clamp(38px,6vw,66px);line-height:1.04}
+.hero h1 em{font-style:italic;color:var(--blue-2)}
+.hero p{font-size:18px;color:var(--muted);line-height:1.65;margin:20px 0 30px;max-width:520px}
+.hero-photo{position:relative;border-radius:22px 22px 0 0;overflow:hidden;background:var(--blue);aspect-ratio:4/4.6}
+.hero-photo img{width:100%;height:100%;object-fit:cover}
+.float-card{position:absolute;background:#fff;border-radius:12px;padding:14px 16px;box-shadow:0 14px 36px rgba(15,39,71,.2);font-size:13px;animation:bob 5s ease-in-out infinite}
+.float-card b{display:block;font-size:20px;color:var(--navy);font-family:var(--serif)}
+.float-card.a{left:-14px;bottom:70px}
+.float-card.b{right:14px;top:26px;animation-delay:1.4s}
+@keyframes bob{50%{transform:translateY(-10px)}}
+.trust-row{display:flex;gap:26px;flex-wrap:wrap;margin-top:34px;font-size:14px;color:var(--muted)}
+.trust-row span{display:flex;gap:8px;align-items:center}.trust-row i{color:var(--blue-2)}
+@media(max-width:900px){.hero-grid{grid-template-columns:1fr}.hero-photo{aspect-ratio:4/3;border-radius:18px}.float-card.a{left:10px}}
+
+/* marquee */
+.ticker{background:var(--navy);color:#fff;overflow:hidden;white-space:nowrap;border-top:1px solid #23406a}
+.marquee{display:flex;width:max-content;animation:scroll 42s linear infinite}
+.marquee:hover{animation-play-state:paused}
+.marquee.rev{animation-direction:reverse}
+.marquee.slow{animation-duration:60s}
+@keyframes scroll{to{transform:translateX(-50%)}}
+.tick{padding:14px 28px;font-size:14px;display:flex;gap:10px;align-items:center;border-right:1px solid #23406a}
+.tick b{font-weight:700}
+.chg{font-weight:700;font-size:13px}.chg.up{color:var(--up)}.chg.down{color:var(--down)}
+.ticker .chg.up{color:#6fdca1}.ticker .chg.down{color:#ff9d93}
+.partners{border-bottom:1px solid var(--line);overflow:hidden;padding:26px 0;background:#fff}
+.partner{font-family:var(--serif);font-size:22px;color:#8a9bb4;padding:0 44px;font-weight:600;white-space:nowrap}
+.partners small{display:block;text-align:center;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:14px}
+
+/* stats */
+.stats{display:grid;grid-template-columns:repeat(4,1fr);border:1px solid var(--line);border-radius:14px;background:#fff;overflow:hidden}
+.stat{padding:30px 24px;border-right:1px solid var(--line)}
+.stat:last-child{border:0}
+.stat b{font-family:var(--serif);font-size:40px;color:var(--navy);display:block}
+.stat span{color:var(--muted);font-size:14px}
+@media(max-width:800px){.stats{grid-template-columns:1fr 1fr}.stat{border-bottom:1px solid var(--line)}}
+
+/* generic grid & cards */
+.grid{display:grid;gap:22px}
+.g2{grid-template-columns:repeat(2,1fr)}.g3{grid-template-columns:repeat(3,1fr)}.g4{grid-template-columns:repeat(4,1fr)}
+@media(max-width:980px){.g3,.g4{grid-template-columns:1fr 1fr}}
+@media(max-width:640px){.g2,.g3,.g4{grid-template-columns:1fr}}
+.card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:26px;transition:.25s}
+.card:hover{border-color:var(--blue-2);box-shadow:0 12px 30px rgba(29,74,133,.1);transform:translateY(-3px)}
+.ico{width:46px;height:46px;border-radius:10px;background:var(--sky);color:var(--blue);display:grid;place-items:center;font-size:22px;margin-bottom:16px}
+.card h3{font-size:20px;margin-bottom:8px}
+.card p{color:var(--muted);line-height:1.6;margin:0;font-size:15px}
+
+/* split rows */
+.split{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center}
+.split.flip .split-img{order:2}
+.split-img{border-radius:18px;overflow:hidden;background:var(--sky);aspect-ratio:5/4;position:relative}
+.split-img img{width:100%;height:100%;object-fit:cover;transition:transform .8s}
+.split-img:hover img{transform:scale(1.05)}
+.tagline{position:absolute;left:16px;bottom:16px;background:#fff;border-radius:10px;padding:10px 14px;font-size:13px;box-shadow:0 8px 24px rgba(0,0,0,.15)}
+.tagline b{color:var(--navy)}
+.ticks{list-style:none;padding:0;margin:22px 0 28px;display:grid;gap:11px}
+.ticks li{display:flex;gap:10px;color:#34496a;line-height:1.5}
+.ticks i{color:var(--blue-2);margin-top:2px}
+.chips{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:6px}
+.chip{border:1px solid var(--line);border-radius:30px;padding:6px 14px;font-size:13px;font-weight:600;color:var(--blue);background:#fff}
+@media(max-width:900px){.split{grid-template-columns:1fr;gap:30px}.split.flip .split-img{order:0}}
+
+/* class overview tiles */
+.tile{display:block;border:1px solid var(--line);border-radius:14px;padding:22px;background:#fff;transition:.25s}
+.tile:hover{background:var(--blue);color:#fff;transform:translateY(-4px)}
+.tile:hover h3,.tile:hover p,.tile:hover i{color:#fff}
+.tile i{font-size:26px;color:var(--blue)}
+.tile h3{font-size:18px;margin:12px 0 4px}.tile p{font-size:13px;color:var(--muted);margin:0}
+.five{display:grid;grid-template-columns:repeat(5,1fr);gap:16px}
+@media(max-width:980px){.five{grid-template-columns:1fr 1fr}}
+
+/* steps */
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:0;counter-reset:s}
+.step{padding:10px 28px 10px 0;position:relative}
+.step:before{counter-increment:s;content:"0" counter(s);font-family:var(--serif);font-size:44px;color:#b9cde8;display:block;margin-bottom:8px}
+.step h3{font-size:19px;margin-bottom:6px}.step p{color:var(--muted);font-size:15px;line-height:1.6;margin:0}
+@media(max-width:900px){.steps{grid-template-columns:1fr 1fr;gap:26px}}
+
+/* tables */
+.tbl-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:14px;background:#fff}
+table.tbl{width:100%;border-collapse:collapse;min-width:560px}
+.tbl th{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);text-align:left;padding:14px 18px;background:var(--sky-2);border-bottom:1px solid var(--line)}
+.tbl td{padding:15px 18px;border-bottom:1px solid var(--line);font-size:15px}
+.tbl tr:last-child td{border:0}
+.tbl tr:hover td{background:var(--sky-2)}
+.sym{display:inline-grid;place-items:center;width:34px;height:34px;border-radius:8px;background:var(--sky);color:var(--blue);font-weight:800;font-size:11px;margin-right:10px;vertical-align:middle}
+.risk{font-size:12px;font-weight:700;padding:3px 10px;border-radius:20px;background:var(--sky);color:var(--blue)}
+.risk.High{background:#fbe9e6;color:var(--down)}.risk.Medium{background:#fdf1dc;color:var(--amber)}.risk.Low{background:#e3f3ea;color:var(--up)}
+
+/* opportunity cards */
+.opp{border:1px solid var(--line);border-radius:14px;overflow:hidden;background:#fff;transition:.25s}
+.opp:hover{box-shadow:0 14px 32px rgba(29,74,133,.14);transform:translateY(-4px)}
+.opp-img{height:170px;background:var(--sky);overflow:hidden;position:relative}
+.opp-img img{width:100%;height:100%;object-fit:cover}
+.opp-img .badge{position:absolute;left:12px;top:12px;background:#fff;border-radius:20px;padding:4px 12px;font-size:12px;font-weight:700;color:var(--blue)}
+.opp-body{padding:20px}
+.opp-body h3{font-size:18px}
+.opp-body p{color:var(--muted);font-size:14px;line-height:1.55;margin:8px 0 14px;min-height:44px}
+.opp-meta{display:flex;justify-content:space-between;font-size:13px;color:var(--muted);border-top:1px solid var(--line);padding-top:12px}
+.opp-meta b{color:var(--navy);display:block;font-size:16px}
+
+/* dashboard preview mock */
+.mock{background:#fff;border:1px solid var(--line);border-radius:16px;box-shadow:0 30px 60px rgba(15,39,71,.14);overflow:hidden}
+.mock-bar{background:var(--sky);padding:11px 16px;display:flex;gap:7px}
+.mock-bar i{width:10px;height:10px;border-radius:50%;background:#b5c7e0}
+.mock-body{display:grid;grid-template-columns:150px 1fr;min-height:300px}
+.mock-side{background:var(--navy);padding:18px 14px;color:#b9cae2;font-size:13px;display:grid;gap:12px;align-content:start}
+.mock-side b{color:#fff}
+.mock-main{padding:20px}
+.mock-bal{background:var(--blue);color:#fff;border-radius:12px;padding:18px}
+.mock-bal b{font-family:var(--serif);font-size:30px;display:block}
+.bars{display:flex;align-items:flex-end;gap:8px;height:90px;margin-top:16px}
+.bars span{flex:1;background:#c9daf0;border-radius:4px 4px 0 0;animation:grow 1.2s ease both}
+.bars span:nth-child(even){background:var(--blue-2)}
+@keyframes grow{from{height:0!important}}
+@media(max-width:700px){.mock-body{grid-template-columns:1fr}.mock-side{display:none}}
+
+/* phone */
+.phone{width:270px;margin:0 auto;border:9px solid var(--navy);border-radius:38px;background:#fff;overflow:hidden;box-shadow:0 26px 50px rgba(15,39,71,.3)}
+.phone-top{background:var(--blue);color:#fff;padding:26px 18px 20px}
+.phone-top b{font-family:var(--serif);font-size:30px;display:block}
+.phone-list{padding:12px 16px}
+.phone-row{display:flex;justify-content:space-between;padding:11px 0;border-bottom:1px solid var(--line);font-size:14px}
+.phone-nav{display:flex;justify-content:space-around;padding:12px;border-top:1px solid var(--line);color:var(--muted);font-size:19px}
+.phone-nav .on{color:var(--blue)}
+
+/* calculator */
+.calc{display:grid;grid-template-columns:1fr 1fr;gap:0;border:1px solid var(--line);border-radius:16px;overflow:hidden;background:#fff}
+.calc-in{padding:34px;display:grid;gap:20px}
+.calc-out{background:var(--navy);color:#cfdcf0;padding:34px;display:flex;flex-direction:column;justify-content:center}
+.calc-out b{font-family:var(--serif);font-size:48px;color:#fff;display:block;margin:6px 0 18px}
+.fld label{display:flex;justify-content:space-between;font-size:14px;font-weight:600;margin-bottom:8px}
+.fld input[type=range]{width:100%;accent-color:var(--blue)}
+.fld select,.fld input[type=number]{width:100%;padding:11px 12px;border:1px solid var(--line);border-radius:8px;font:inherit}
+@media(max-width:800px){.calc{grid-template-columns:1fr}}
+
+/* profiles / pricing */
+.price{background:#fff;border:1px solid var(--line);border-radius:14px;padding:28px}
+.price.hot{border:2px solid var(--blue);position:relative}
+.price.hot:before{content:"Most chosen";position:absolute;top:-13px;left:24px;background:var(--blue);color:#fff;font-size:12px;font-weight:700;padding:3px 12px;border-radius:20px}
+.price big{font-family:var(--serif);font-size:38px;color:var(--navy);display:block;margin:10px 0}
+
+/* testimonial slider */
+.slider{overflow:hidden}
+.slides{display:flex;transition:transform .6s ease}
+.slide{min-width:100%;padding:0 6px}
+.quote{background:#fff;border:1px solid var(--line);border-radius:16px;padding:38px;max-width:820px;margin:0 auto;text-align:center}
+.quote p{font-family:var(--serif);font-size:22px;line-height:1.5;color:var(--navy);margin:0 0 22px}
+.quote .who{display:flex;gap:12px;align-items:center;justify-content:center;font-size:14px;color:var(--muted)}
+.quote .who img{width:48px;height:48px;border-radius:50%;object-fit:cover;background:var(--sky)}
+.dots{display:flex;gap:8px;justify-content:center;margin-top:22px}
+.dots button{width:9px;height:9px;border-radius:50%;border:0;background:#c3d3e9;padding:0;cursor:pointer}
+.dots button.on{background:var(--blue);width:26px;border-radius:6px}
+
+/* blog */
+.post{border:1px solid var(--line);border-radius:14px;overflow:hidden;background:#fff;transition:.25s}
+.post:hover{transform:translateY(-4px);box-shadow:0 12px 28px rgba(29,74,133,.12)}
+.post-img{height:180px;background:var(--sky);overflow:hidden}
+.post-img img{width:100%;height:100%;object-fit:cover}
+.post-b{padding:20px}.post-b small{color:var(--blue-2);font-weight:700}
+.post-b h3{font-size:18px;margin-top:6px}
+
+/* compare */
+.cmp td:nth-child(2){background:var(--sky);font-weight:700;color:var(--navy)}
+.cmp th:nth-child(2){background:var(--blue);color:#fff}
+.yes{color:var(--up)}.no{color:var(--down)}
+
+/* faq */
+details.faq{border-bottom:1px solid var(--line);padding:20px 0}
+details.faq summary{cursor:pointer;font-weight:700;font-size:17px;list-style:none;display:flex;justify-content:space-between;gap:20px;color:var(--navy)}
+details.faq summary::after{content:"+";font-size:24px;color:var(--blue-2);line-height:1}
+details.faq[open] summary::after{content:"–"}
+details.faq p{color:var(--muted);line-height:1.7;margin:12px 0 0;max-width:760px}
+
+/* newsletter + cta */
+.news{background:var(--sky);border-radius:18px;padding:46px;display:grid;grid-template-columns:1fr 1fr;gap:30px;align-items:center}
+.news form{display:flex;gap:10px;flex-wrap:wrap}
+.news input{flex:1;min-width:190px;padding:13px 16px;border:1px solid var(--line);border-radius:8px;font:inherit}
+@media(max-width:800px){.news{grid-template-columns:1fr;padding:28px}}
+.cta{position:relative;border-radius:20px;overflow:hidden;background:var(--navy);color:#fff;display:grid;grid-template-columns:1.1fr .9fr}
+.cta-t{padding:60px 50px}
+.cta h2{color:#fff;font-size:clamp(28px,4vw,44px)}
+.cta p{color:#b9cae2;margin:14px 0 26px;line-height:1.6}
+.cta-i{background:var(--blue)}.cta-i img{width:100%;height:100%;object-fit:cover}
+@media(max-width:800px){.cta{grid-template-columns:1fr}.cta-t{padding:34px 26px}.cta-i{height:220px}}
+
+/* footer */
+.foot{background:var(--navy);color:#a9bbd6;padding:70px 0 26px;font-size:14px}
+.foot h4{color:#fff;font-size:16px;margin-bottom:14px;font-family:var(--sans);font-weight:700}
+.foot a{display:block;padding:5px 0}.foot a:hover{color:#fff}
+.foot-grid{display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr;gap:34px}
+.foot .logo{color:#fff;margin-bottom:12px}
+.risk-note{border-top:1px solid #23406a;margin-top:44px;padding-top:22px;font-size:12px;line-height:1.7;color:#8199bc}
+@media(max-width:800px){.foot-grid{grid-template-columns:1fr 1fr}}
+
+/* reveal */
+.rv{opacity:0;transform:translateY(26px);transition:opacity .7s,transform .7s}
+.rv.in{opacity:1;transform:none}
+.rv.d1{transition-delay:.1s}.rv.d2{transition-delay:.2s}.rv.d3{transition-delay:.3s}
+
+/* auth pages */
+.auth{display:grid;grid-template-columns:1fr 1fr;min-height:100vh}
+.auth-img{background:var(--navy);position:relative}
+.auth-img img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.55}
+.auth-img div{position:relative;padding:50px;color:#fff;display:flex;flex-direction:column;justify-content:flex-end;height:100%}
+.auth-img h2{color:#fff;font-size:34px;max-width:420px}
+.auth-form{display:grid;place-items:center;padding:30px}
+.auth-form form{width:100%;max-width:400px}
+.f{margin-bottom:16px}.f label{display:block;font-weight:600;font-size:14px;margin-bottom:6px}
+.f input,.f select{width:100%;padding:12px 14px;border:1px solid var(--line);border-radius:8px;font:inherit;background:#fff}
+.f input:focus,.f select:focus{outline:2px solid var(--blue-2);border-color:transparent}
+.alert-fv{padding:12px 14px;border-radius:8px;font-size:14px;margin-bottom:16px}
+.alert-fv.success{background:#e3f3ea;color:#16633b}.alert-fv.danger{background:#fbe9e6;color:#8f2a22}
+.demo-hint{background:var(--sky);border-radius:8px;padding:12px 14px;font-size:13px;margin-top:16px}
+@media(max-width:850px){.auth{grid-template-columns:1fr}.auth-img{display:none}}
+
+/* ====== DASHBOARD ====== */
+.app{display:grid;grid-template-columns:240px 1fr;min-height:100vh;background:var(--sky-2)}
+.side{background:var(--navy);color:#b9cae2;padding:24px 16px;position:sticky;top:0;height:100vh;display:flex;flex-direction:column}
+.side .logo{color:#fff;margin:0 8px 30px}
+.side a.item{display:flex;align-items:center;gap:12px;padding:12px 14px;border-radius:10px;font-weight:600;font-size:15px;margin-bottom:4px}
+.side a.item:hover{background:#1a3a66;color:#fff}
+.side a.item.on{background:var(--blue);color:#fff}
+.side .me{margin-top:auto;border-top:1px solid #23406a;padding:16px 8px 0;font-size:13px}
+.side .me b{color:#fff;display:block}
+.main{padding:28px 32px 100px;min-width:0}
+.topbar{display:flex;justify-content:space-between;align-items:center;margin-bottom:26px;gap:12px}
+.topbar h1{font-size:28px}.topbar small{color:var(--muted);display:block;font-family:var(--sans);font-size:14px;margin-top:2px}
+.avatar{width:42px;height:42px;border-radius:50%;background:var(--blue);color:#fff;display:grid;place-items:center;font-weight:700}
+.panel{background:#fff;border:1px solid var(--line);border-radius:14px;padding:22px}
+.panel h3{font-size:19px;margin-bottom:16px;display:flex;justify-content:space-between;align-items:center}
+.panel h3 a{font-family:var(--sans);font-size:13px;color:var(--blue-2);font-weight:700}
+.bal{background:var(--blue);color:#fff;border:0;background:linear-gradient(135deg,#1d4a85,#14345f)}
+.bal small{opacity:.8}.bal b{display:block;font-family:var(--serif);font-size:40px;margin:6px 0 16px}
+.kpi{min-width:0;overflow:hidden}
+.kpi small{color:var(--muted);font-size:12px;display:block;line-height:1.3;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.kpi b{font-family:var(--serif);font-size:clamp(14px,4.2vw,26px);color:var(--navy);display:block;margin-top:4px;line-height:1.15;overflow-wrap:anywhere;word-break:break-word}
+.kpi-row{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+@media(max-width:700px){.kpi-row{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.panel.kpi{padding:14px 12px}.kpi small{font-size:11px}.kpi b{font-size:16px}}
+.kpi-mini{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;text-align:center}
+.kpi-mini small{display:block;font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.04em}
+.kpi-mini b{display:block;font-size:14px;color:var(--navy);margin-top:2px;overflow-wrap:anywhere}
+.kpi-mini b.up{color:var(--up)}
+@media(max-width:520px){.kpi-mini{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.hold-list{display:flex;flex-direction:column;gap:12px}
+.hold-card{border:1px solid var(--line);border-radius:12px;padding:14px;background:var(--sky-2)}
+.hold-top{display:flex;align-items:center;gap:10px;margin-bottom:12px}
+.hold-name{flex:1;min-width:0}.hold-name strong{display:block;color:var(--navy);font-size:15px;line-height:1.25}.hold-name small{color:var(--muted);font-size:12.5px}
+.hold-sell{margin-left:auto;flex-shrink:0}
+.hold-stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
+.hold-stats > div{min-width:0;background:#fff;border:1px solid var(--line);border-radius:10px;padding:10px 8px}
+.hold-stats small{display:block;font-size:11px;color:var(--muted);margin-bottom:2px}
+.hold-stats b{display:block;font-size:14px;color:var(--navy);line-height:1.2;overflow-wrap:anywhere}
+.hold-stats .chg{font-size:11px;margin-top:3px;display:inline-block}
+@media(max-width:600px){.hold-stats{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.quick{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.quick a{background:#fff;border:1px solid var(--line);border-radius:12px;padding:16px 8px;text-align:center;font-weight:600;font-size:14px;transition:.2s}
+.quick a:hover{border-color:var(--blue-2);background:var(--sky)}
+.quick i{display:block;font-size:24px;color:var(--blue);margin-bottom:6px}
+.tx{display:flex;justify-content:space-between;align-items:center;padding:13px 0;border-bottom:1px solid var(--line)}
+.tx:last-child{border:0}
+.tx .l{display:flex;gap:12px;align-items:center}
+.tx .l i{width:38px;height:38px;border-radius:10px;background:var(--sky);color:var(--blue);display:grid;place-items:center;font-size:17px}
+.tx small{color:var(--muted);display:block;font-size:12px}
+.tx .amt{font-weight:700}.tx .amt.plus{color:var(--up)}.tx .amt.minus{color:var(--ink)}
+.pill{font-size:11px;font-weight:700;padding:2px 9px;border-radius:12px;background:#fdf1dc;color:var(--amber)}
+.tabs{display:flex;gap:8px;overflow-x:auto;margin-bottom:20px;padding-bottom:4px}
+.tabs a{white-space:nowrap;padding:9px 18px;border-radius:30px;border:1px solid var(--line);background:#fff;font-weight:600;font-size:14px}
+.tabs a.on{background:var(--blue);color:#fff;border-color:var(--blue)}
+.bottom{display:none}
+@media(max-width:900px){
+  .app{grid-template-columns:1fr}.side{display:none}
+  .main{padding:20px 16px 110px}
+  .bottom{display:flex;position:fixed;left:12px;right:12px;bottom:12px;z-index:60;background:var(--navy);border-radius:22px;padding:8px 10px;justify-content:space-around;align-items:center;box-shadow:0 12px 30px rgba(15,39,71,.4)}
+  .bottom a{display:flex;flex-direction:column;align-items:center;gap:2px;font-size:11px;color:#a9bbd6;padding:6px 10px;font-weight:600}
+  .bottom a i{font-size:20px}
+  .bottom a.on{color:#fff}
+  .bottom a.mid{background:var(--blue-2);color:#fff;border-radius:50%;width:56px;height:56px;justify-content:center;margin-top:-26px;border:4px solid var(--sky-2)}
+  .bottom a.mid span{display:none}
+  .topbar h1{font-size:23px}
+}
+.modal-content{border-radius:16px;border:0}
+.modal-title{font-family:var(--serif);color:var(--navy)}
+/* Loaded on every page: branding, PWA install UI, activity pop-up, messages */
+.brand-img{height:36px;width:auto;max-width:190px;display:block;object-fit:contain}
+.logo .brand-img{height:34px}
+.foot .brand-img{height:32px}
+[hidden]{display:none!important}
+.inst-btn{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.12);color:#fff;border:1px solid rgba(255,255,255,.25);border-radius:10px;padding:8px 14px;font-weight:700;font-size:13.5px;cursor:pointer;margin-top:12px;font-family:inherit}
+.inst-modal{position:fixed;inset:0;background:rgba(10,24,46,.55);display:none;align-items:center;justify-content:center;z-index:3000;padding:20px}
+.inst-modal.on{display:flex}
+.inst-box{background:#fff;border-radius:18px;max-width:380px;width:100%;padding:26px;position:relative;color:#14233b;line-height:1.6;font-size:14.5px;font-family:'Figtree',system-ui,sans-serif}
+.inst-box h3{margin:0 0 8px;font-size:20px;color:#0f2747}.inst-box ol{padding-left:20px;margin:0 0 10px}
+.inst-x{position:absolute;top:10px;right:14px;border:0;background:none;font-size:26px;cursor:pointer;color:#62758f}
+.inst-bar{display:none;align-items:center;gap:12px;background:#fff;border:1px solid #dbe4f0;border-radius:14px;padding:11px 12px;margin:0 0 14px;box-shadow:0 4px 14px rgba(15,39,71,.06)}
+.inst-bar img{width:42px;height:42px;border-radius:10px;flex:none}
+.inst-bar .tx2{flex:1;min-width:0;font-size:13px;line-height:1.35;color:#62758f}.inst-bar .tx2 b{display:block;color:#0f2747;font-size:14.5px}
+.inst-bar button.go{background:#1d4a85;color:#fff;border:0;border-radius:10px;padding:9px 16px;font-weight:700;font-size:13.5px;cursor:pointer;font-family:inherit}
+.inst-bar button.no{background:none;border:0;color:#8aa0bd;font-size:22px;cursor:pointer;line-height:1;padding:0 2px}
+@media(max-width:991px){.inst-bar.on{display:flex}}
+
+/* Live activity pop-up */
+.act-pop{position:fixed;left:20px;bottom:20px;z-index:2500;width:340px;max-width:calc(100vw - 32px);background:#fff;border:1px solid #e2eaf5;border-radius:14px;box-shadow:0 12px 32px rgba(15,39,71,.16);display:flex;gap:12px;align-items:center;padding:12px 34px 14px 12px;font-family:'Figtree',system-ui,sans-serif;overflow:hidden;
+  transform:translateX(-24px);opacity:0;visibility:hidden;transition:transform .5s cubic-bezier(.22,1,.36,1),opacity .4s ease,visibility 0s linear .5s}
+.act-pop.on{transform:none;opacity:1;visibility:visible;transition-delay:0s}
+.act-pop .ph{position:relative;flex:none;width:44px;height:44px}
+.act-pop .ph img.p{display:block;width:44px;height:44px;border-radius:50%;object-fit:cover;background:#dfe9f6}
+.act-pop .ph img.f{position:absolute;right:-6px;bottom:-2px;width:20px;height:14px;border-radius:3px;object-fit:cover;border:2px solid #fff;box-sizing:content-box;box-shadow:0 1px 3px rgba(0,0,0,.25)}
+.act-pop .t{font-size:13px;line-height:1.4;color:#3a4d68;min-width:0}
+.act-pop .t b{color:#0f2747;font-weight:700}
+.act-pop .t small{display:block;color:#8aa0bd;font-size:11.5px;margin-top:3px}
+.act-pop .x{position:absolute;top:6px;right:8px;border:0;background:none;color:#a6b6cc;font-size:18px;cursor:pointer;line-height:1;padding:2px 4px}
+.act-pop .x:hover{color:#0f2747}
+.act-pop .bar{position:absolute;left:0;bottom:0;height:3px;width:100%;background:#1d4a85;opacity:.85;transform-origin:left}
+.act-pop.on .bar{animation:actbar var(--dur,6s) linear forwards}
+@keyframes actbar{from{transform:scaleX(1)}to{transform:scaleX(0)}}
+@media(max-width:991px){.act-pop{left:12px;bottom:12px;width:300px;padding:10px 30px 13px 10px}.has-bottom-nav .act-pop{bottom:88px}}
+@media(max-width:480px){.act-pop{width:calc(100vw - 24px)}}
+@media print{.act-pop,.inst-modal,.inst-bar{display:none!important}}
+
+/* Messages */
+.msg-kind{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:700;padding:3px 10px;border-radius:99px;background:#eaf1fb;color:#1d4a85}
+.msg-kind.bonus{background:#e3f6ec;color:#0d7a4e}.msg-kind.alert{background:#fdf0dc;color:#9a5b00}.msg-kind.notice{background:#eef1f6;color:#4a5c75}
+.msg-item{display:flex;gap:14px;padding:16px;border:1px solid #e2eaf5;border-radius:14px;background:#fff;margin-bottom:12px;text-decoration:none;color:inherit}
+.msg-item.unread{border-color:#9db9e0;background:#f5f9ff;box-shadow:inset 3px 0 0 #1d4a85}
+.msg-ic{flex:none;width:42px;height:42px;border-radius:12px;display:grid;place-items:center;font-size:19px;background:#eaf1fb;color:#1d4a85}
+.msg-ic.bonus{background:#e3f6ec;color:#0d7a4e}.msg-ic.alert{background:#fdf0dc;color:#9a5b00}.msg-ic.notice{background:#eef1f6;color:#4a5c75}
+.msg-item h4{margin:0 0 2px;font-size:15.5px;color:#0f2747}
+.msg-item .body{font-size:14px;line-height:1.6;color:#3a4d68;white-space:pre-line;margin-top:6px}
+.msg-item time{font-size:12px;color:#8aa0bd}
+.msg-amt{display:inline-block;margin-top:8px;font-weight:800;color:#0d7a4e;background:#e3f6ec;padding:4px 12px;border-radius:99px;font-size:13.5px}
+.msg-banner{display:flex;gap:12px;align-items:center;background:#0f2747;color:#fff;border-radius:14px;padding:14px 16px;margin-bottom:16px}
+.msg-banner i{font-size:22px;color:#8fb4e6}.msg-banner div{flex:1;min-width:0;font-size:14px}.msg-banner b{display:block}
+.msg-banner a{color:#fff;font-weight:700;white-space:nowrap;border:1px solid rgba(255,255,255,.35);padding:7px 14px;border-radius:10px;text-decoration:none;font-size:13px}
+.bell{position:relative;display:inline-grid;place-items:center;width:40px;height:40px;border-radius:50%;background:#fff;border:1px solid #dbe4f0;color:#0f2747;text-decoration:none;font-size:18px}
+.bell b{position:absolute;top:-4px;right:-4px;background:#d93a3a;color:#fff;border-radius:99px;font-size:10.5px;min-width:18px;height:18px;display:grid;place-items:center;padding:0 4px;border:2px solid #f4f8fd}
+
+/* Support chat */
+.chat{max-height:420px;overflow-y:auto;padding:14px;background:#f4f8fd;border:1px solid #e2eaf5;border-radius:14px;margin-bottom:12px;display:flex;flex-direction:column;gap:10px}
+.bub{max-width:82%;padding:10px 14px;border-radius:14px;font-size:14px;line-height:1.55;background:#fff;border:1px solid #e2eaf5;color:#14233b;word-break:break-word}
+.bub.me{align-self:flex-end;background:#1d4a85;color:#fff;border-color:#1d4a85}
+.bub .who{font-size:11px;opacity:.7;margin-bottom:3px}
+/* Account standing */
+.standing{border-radius:18px;padding:26px;color:#fff;margin-bottom:16px;display:flex;gap:18px;align-items:flex-start;flex-wrap:wrap}
+.standing.suspended{background:linear-gradient(135deg,#7a1f1f,#b3261e)}.standing.investigation{background:linear-gradient(135deg,#7a4a00,#c47a00)}
+.standing i.big{font-size:42px;line-height:1}.standing h2{margin:0 0 4px;font-size:24px;font-family:'Fraunces',Georgia,serif}.standing p{margin:0;opacity:.92;line-height:1.6}
+.restrict-bar{background:#fdf0dc;color:#7a4a00;border-bottom:1px solid #f0d9ad;padding:10px 16px;font-size:13.5px;font-weight:600;text-align:center}
+.restrict-bar.suspended{background:#fde7e5;color:#8a1b14;border-color:#f3c3be}
+.restrict-bar a{color:inherit;text-decoration:underline}
+.rlist{list-style:none;padding:0;margin:0}.rlist li{display:flex;gap:10px;padding:8px 0;border-bottom:1px solid #eef2f8;font-size:14px}
+.rlist i{flex:none;margin-top:2px}.rlist .no{color:#b3261e}.rlist .yes{color:#0d7a4e}
+.msg-banner.support{background:#1d4a85}
+#fvBanner:empty{display:none}
+@keyframes bannerIn{from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:none}}
+#fvBanner .msg-banner{animation:bannerIn .4s ease}
+
+/* Chat presence + floating chat button */
+.chat-head{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:8px}
+.presence{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:600;color:#62758f}
+.presence i{width:9px;height:9px;border-radius:50%;background:#b8c4d6;display:inline-block}
+.presence.on{color:#0d7a4e}.presence.on i{background:#1fb26b;box-shadow:0 0 0 4px rgba(31,178,107,.18)}
+.presence em{font-style:normal}
+.chat-fab{position:fixed;right:20px;bottom:20px;z-index:2400;display:inline-flex;align-items:center;gap:8px;background:#1d4a85;color:#fff;border-radius:99px;padding:12px 18px;font-weight:700;font-size:14px;text-decoration:none;box-shadow:0 10px 26px rgba(15,39,71,.28);font-family:'Figtree',system-ui,sans-serif}
+.chat-fab:hover{background:#163a6a;color:#fff}.chat-fab i{font-size:18px}
+.chat-fab b{position:absolute;top:-6px;right:-4px;background:#d93a3a;color:#fff;border-radius:99px;min-width:20px;height:20px;display:grid;place-items:center;font-size:11.5px;padding:0 5px;border:2px solid #fff}
+@media(max-width:991px){.chat-fab{right:14px;bottom:84px;padding:12px 14px}.chat-fab span{display:none}}
+@media print{.chat-fab{display:none!important}}
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="wrap nav-in">
+    <a href="#" class="logo"><img src="https://devionicdemo.name.ng/finvest/assets/uploads/logo-874f52108460.png" alt="VertexCloud-Capital" class="brand-img"></a>
+    <nav class="nav-links">
+      <a href="#classes">Investments</a>
+      <a href="#how">How it works</a>
+      <a href="#markets">Markets</a>
+      <a href="#calculator">Calculator</a>
+      <a href="#security">Security</a>
+      <a href="#faq">FAQ</a>
+    </nav>
+    <div class="nav-cta">
+              <a href="#" class="btn-fv sm ghost hide-m">Log in</a>
+        <a href="#" class="btn-fv sm">Get started</a>
+            <button type="button" class="btn-fv sm ghost hide-m" data-install=""><i class="bi bi-download"></i> Install app</button>
+      <button type="button" class="btn-fv sm ghost hide-d" data-install="" aria-label="Install app"><i class="bi bi-download"></i></button>
+      <button class="burger" id="burger" aria-label="Menu"><i class="bi bi-list"></i></button>
+    </div>
+  </div>
+</header>
+<div class="drawer" id="drawer">
+  <div class="drawer-box">
+    <a href="#classes">Investments</a><a href="#how">How it works</a><a href="#markets">Markets</a>
+    <a href="#calculator">Calculator</a><a href="#security">Security</a><a href="#faq">FAQ</a>
+    <a href="#" data-install=""><i class="bi bi-download"></i> Download / Install app</a>
+    <a href="#">Log in</a>
+    <a href="#" class="btn-fv block" style="margin-top:14px;justify-content:center;color:#fff;border-bottom:0">Create account</a>
+  </div>
+</div>
+
+<!-- 3. HERO -->
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div class="rv in">
+      <h1>Grow your money in <em>five</em> ways, from one account.</h1>
+      <p>Stocks, ETFs, crypto, farmland and property. Start small, see everything on one simple screen, and stay in control of every dollar.</p>
+      <div class="flex flex-wrap gap-3">
+        <a href="#" class="btn-fv">Open a free account <i class="bi bi-arrow-right"></i></a>
+        <a href="#how" class="btn-fv ghost">See how it works</a>
+      </div>
+      <div class="trust-row">
+        <span><i class="bi bi-shield-check"></i> Funds held separately</span>
+        <span><i class="bi bi-cash-coin"></i> From just $10</span>
+        <span><i class="bi bi-phone"></i> Works on any phone</span>
+      </div>
+    </div>
+    <div class="hero-photo rv d2">
+      <img src="https://images.pexels.com/photos/3184465/pexels-photo-3184465.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=1400" alt="Two colleagues reviewing investments" class="" onerror="this.style.opacity=0">      <div class="float-card b"><span>Portfolio this month</span><b>+8.24%</b></div>
+      <div class="float-card a"><span>Next payout</span><b>$312.50</b></div>
+    </div>
+  </div>
+</section>
+
+<!-- 4. LIVE TICKER MARQUEE -->
+<div class="ticker" aria-label="Market prices">
+  <div class="marquee">
+          <div class="tick"><b>NVLT</b> <span>$184.20</span> <span class="chg up">▲ 1.84%</span></div>
+          <div class="tick"><b>HRBK</b> <span>$62.45</span> <span class="chg down">▼ 0.42%</span></div>
+          <div class="tick"><b>SOLW</b> <span>$41.10</span> <span class="chg up">▲ 2.31%</span></div>
+          <div class="tick"><b>FVWD</b> <span>$112.60</span> <span class="chg up">▲ 0.67%</span></div>
+          <div class="tick"><b>FVTK</b> <span>$248.35</span> <span class="chg up">▲ 1.12%</span></div>
+          <div class="tick"><b>FVGB</b> <span>$48.90</span> <span class="chg up">▲ 0.12%</span></div>
+          <div class="tick"><b>BTC</b> <span>$67,420.00</span> <span class="chg up">▲ 2.76%</span></div>
+          <div class="tick"><b>ETH</b> <span>$3,723.02</span> <span class="chg down">▼ 0.73%</span></div>
+          <div class="tick"><b>SOL</b> <span>$168.75</span> <span class="chg up">▲ 4.05%</span></div>
+      
+          <div class="tick"><b>NVLT</b> <span>$184.20</span> <span class="chg up">▲ 1.84%</span></div>
+          <div class="tick"><b>HRBK</b> <span>$62.45</span> <span class="chg down">▼ 0.42%</span></div>
+          <div class="tick"><b>SOLW</b> <span>$41.10</span> <span class="chg up">▲ 2.31%</span></div>
+          <div class="tick"><b>FVWD</b> <span>$112.60</span> <span class="chg up">▲ 0.67%</span></div>
+          <div class="tick"><b>FVTK</b> <span>$248.35</span> <span class="chg up">▲ 1.12%</span></div>
+          <div class="tick"><b>FVGB</b> <span>$48.90</span> <span class="chg up">▲ 0.12%</span></div>
+          <div class="tick"><b>BTC</b> <span>$67,420.00</span> <span class="chg up">▲ 2.76%</span></div>
+          <div class="tick"><b>ETH</b> <span>$3,723.02</span> <span class="chg down">▼ 0.73%</span></div>
+          <div class="tick"><b>SOL</b> <span>$168.75</span> <span class="chg up">▲ 4.05%</span></div>
+      </div>
+</div>
+
+<!-- 5. PARTNER MARQUEE -->
+<section class="partners">
+  <small>Our operating and custody partners</small>
+  <div class="marquee slow rev" style="width:max-content">
+          <span class="partner">Meridian Custody</span>
+          <span class="partner">Northgate Capital</span>
+          <span class="partner">AgriLink Cooperative</span>
+          <span class="partner">Stonebridge Properties</span>
+          <span class="partner">Clearwater Payments</span>
+          <span class="partner">Hallmark Registrars</span>
+          <span class="partner">Summit Auditors</span>
+          <span class="partner">GreenAcre Growers</span>
+      
+          <span class="partner">Meridian Custody</span>
+          <span class="partner">Northgate Capital</span>
+          <span class="partner">AgriLink Cooperative</span>
+          <span class="partner">Stonebridge Properties</span>
+          <span class="partner">Clearwater Payments</span>
+          <span class="partner">Hallmark Registrars</span>
+          <span class="partner">Summit Auditors</span>
+          <span class="partner">GreenAcre Growers</span>
+      </div>
+</section>
+
+<!-- 6. STATS -->
+<section class="sec" style="padding:60px 0 20px">
+  <div class="wrap">
+    <div class="stats rv">
+      <div class="stat"><b data-count="128000" data-suf="+">0</b><span>Investors on the platform</span></div>
+      <div class="stat"><b data-count="412" data-pre="$" data-suf="M">0</b><span>Invested through VertexCloud-Capital</span></div>
+      <div class="stat"><b data-count="86" data-suf="">0</b><span>Farm and property projects funded</span></div>
+      <div class="stat"><b data-count="4.8" data-dec="1">0</b><span>Average app rating</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- 7. ABOUT -->
+<section class="sec" id="about">
+  <div class="wrap split">
+    <div class="split-img rv"><img src="https://images.pexels.com/photos/3183150/pexels-photo-3183150.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=1000" alt="Advisor explaining a plan to a client" class="" loading="lazy" onerror="this.style.opacity=0"></div>
+    <div class="rv d1">
+      <span class="eyebrow">Who we are</span>
+      <h2 class="h2">Built for people who want to invest but not read a textbook first.</h2>
+      <p class="lead">VertexCloud-Capital brings traditional markets and real-world assets into one place. Every product shows its risk, its minimum and what you can expect, in plain words, before you commit a single dollar.</p>
+      <ul class="ticks">
+        <li><i class="bi bi-check-circle-fill"></i> Plain language on every screen</li>
+        <li><i class="bi bi-check-circle-fill"></i> One wallet for all five asset types</li>
+        <li><i class="bi bi-check-circle-fill"></i> Learn first with free guides and clear product pages</li>
+      </ul>
+      <a href="#" class="btn-fv">Create your account</a>
+    </div>
+  </div>
+</section>
+
+<!-- 8. ASSET CLASS OVERVIEW -->
+<section class="sec alt" id="classes">
+  <div class="wrap">
+    <div class="sec-head center rv"><span class="eyebrow">What you can invest in</span><h2 class="h2">Five asset classes. One simple dashboard.</h2><p class="lead">Mix fast-moving markets with steady real-world income to match your own comfort with risk.</p></div>
+    <div class="five">
+              <a href="#stock" class="tile rv d1"><i class="bi bi-graph-up-arrow"></i><h3>Stocks</h3><p>3 options available</p></a>
+              <a href="#etf" class="tile rv d2"><i class="bi bi-pie-chart"></i><h3>ETFs</h3><p>3 options available</p></a>
+              <a href="#crypto" class="tile rv d3"><i class="bi bi-currency-bitcoin"></i><h3>Crypto</h3><p>3 options available</p></a>
+              <a href="#agric" class="tile rv d3"><i class="bi bi-flower2"></i><h3>Agriculture</h3><p>5 options available</p></a>
+              <a href="#realestate" class="tile rv d3"><i class="bi bi-buildings"></i><h3>Real Estate</h3><p>4 options available</p></a>
+          </div>
+  </div>
+</section>
+
+<!-- 9-13. ONE SECTION PER ASSET CLASS -->
+<section class="sec" id="stock">
+  <div class="wrap split ">
+    <div class="split-img rv"><img src="https://images.pexels.com/photos/590022/pexels-photo-590022.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=900" alt="Stocks" class="" loading="lazy" onerror="this.style.opacity=0"><div class="tagline">Typical range<br><b>6% - 11% p.a.</b></div></div>
+    <div class="rv d1">
+      <span class="eyebrow">Stocks</span>
+      <h2 class="h2">Own a small piece of companies you know</h2>
+      <p class="lead">Buy shares in listed companies from $25. Earn through price growth and dividends, and sell on any market day.</p>
+      <ul class="ticks"><li><i class="bi bi-check-circle-fill"></i> Start from $25 per purchase</li><li><i class="bi bi-check-circle-fill"></i> Dividends paid into your wallet</li><li><i class="bi bi-check-circle-fill"></i> Sell any market day</li></ul>
+      <div class="chips"><span class="chip">Dividend income</span><span class="chip">Long term growth</span></div>
+      <a href="#" class="btn-fv ghost" style="margin-top:16px">Explore stocks <i class="bi bi-arrow-right"></i></a>
+    </div>
+  </div>
+</section>
+<section class="sec alt" id="etf">
+  <div class="wrap split flip">
+    <div class="split-img rv"><img src="https://images.pexels.com/photos/6770610/pexels-photo-6770610.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=900" alt="ETFs" class="" loading="lazy" onerror="this.style.opacity=0"><div class="tagline">Typical range<br><b>5% - 9% p.a.</b></div></div>
+    <div class="rv d1">
+      <span class="eyebrow">ETFs</span>
+      <h2 class="h2">One purchase, hundreds of companies</h2>
+      <p class="lead">An ETF bundles many investments into one. It is the calmest way to spread risk when you are starting out.</p>
+      <ul class="ticks"><li><i class="bi bi-check-circle-fill"></i> Instant diversification</li><li><i class="bi bi-check-circle-fill"></i> Very low running costs</li><li><i class="bi bi-check-circle-fill"></i> World, tech and green bond funds</li></ul>
+      <div class="chips"><span class="chip">Low cost</span><span class="chip">Beginner friendly</span></div>
+      <a href="#" class="btn-fv ghost" style="margin-top:16px">Explore etfs <i class="bi bi-arrow-right"></i></a>
+    </div>
+  </div>
+</section>
+<section class="sec" id="crypto">
+  <div class="wrap split ">
+    <div class="split-img rv"><img src="https://images.pexels.com/photos/844124/pexels-photo-844124.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=900" alt="Crypto" class="" loading="lazy" onerror="this.style.opacity=0"><div class="tagline">Volatility<br><b>High</b></div></div>
+    <div class="rv d1">
+      <span class="eyebrow">Crypto</span>
+      <h2 class="h2">Digital assets, with eyes wide open</h2>
+      <p class="lead">Buy the major coins in small amounts. Prices move fast, so we show risk clearly and keep minimums low.</p>
+      <ul class="ticks"><li><i class="bi bi-check-circle-fill"></i> Bitcoin, Ethereum and Solana</li><li><i class="bi bi-check-circle-fill"></i> Trade 24 hours a day</li><li><i class="bi bi-check-circle-fill"></i> Clear high-risk labelling</li></ul>
+      <div class="chips"><span class="chip">High risk</span><span class="chip">24/7 trading</span></div>
+      <a href="#" class="btn-fv ghost" style="margin-top:16px">Explore crypto <i class="bi bi-arrow-right"></i></a>
+    </div>
+  </div>
+</section>
+<section class="sec alt" id="agric">
+  <div class="wrap split flip">
+    <div class="split-img rv"><img src="https://images.pexels.com/photos/2252584/pexels-photo-2252584.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=900" alt="Agriculture" class="" loading="lazy" onerror="this.style.opacity=0"><div class="tagline">Expected return<br><b>14% - 22% p.a.</b></div></div>
+    <div class="rv d1">
+      <span class="eyebrow">Agriculture</span>
+      <h2 class="h2">Back real farms and earn at harvest</h2>
+      <p class="lead">Fund cassava, cocoa, maize and poultry projects run by vetted operators. Returns are fixed at the start of the term.</p>
+      <ul class="ticks"><li><i class="bi bi-check-circle-fill"></i> Fixed term of 6 - 18 months</li><li><i class="bi bi-check-circle-fill"></i> Projects checked by field agents</li><li><i class="bi bi-check-circle-fill"></i> Fixed expected return shown upfront</li></ul>
+      <div class="chips"><span class="chip">Fixed term</span><span class="chip">Real assets</span></div>
+      <a href="#" class="btn-fv ghost" style="margin-top:16px">Explore agriculture <i class="bi bi-arrow-right"></i></a>
+    </div>
+  </div>
+</section>
+<section class="sec" id="realestate">
+  <div class="wrap split ">
+    <div class="split-img rv"><img src="https://images.pexels.com/photos/259588/pexels-photo-259588.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=900" alt="Real estate" class="" loading="lazy" onerror="this.style.opacity=0"><div class="tagline">Expected return<br><b>12% - 20% p.a.</b></div></div>
+    <div class="rv d1">
+      <span class="eyebrow">Real estate</span>
+      <h2 class="h2">Property income without buying a building</h2>
+      <p class="lead">Own units in residential, commercial and land projects. Receive rental income or capital gains when the project completes.</p>
+      <ul class="ticks"><li><i class="bi bi-check-circle-fill"></i> Start from $200</li><li><i class="bi bi-check-circle-fill"></i> Rental income or land gains</li><li><i class="bi bi-check-circle-fill"></i> Every property is legally documented</li></ul>
+      <div class="chips"><span class="chip">Rental income</span><span class="chip">Long term</span></div>
+      <a href="#" class="btn-fv ghost" style="margin-top:16px">Explore real estate <i class="bi bi-arrow-right"></i></a>
+    </div>
+  </div>
+</section>
+
+<!-- 14. HOW IT WORKS -->
+<section class="sec" id="how">
+  <div class="wrap">
+    <div class="sec-head rv"><span class="eyebrow">How it works</span><h2 class="h2">From sign-up to your first investment in four steps</h2></div>
+    <div class="steps">
+      <div class="step rv"><h3>Create account</h3><p>Sign up with your email. It takes about two minutes.</p></div>
+      <div class="step rv d1"><h3>Fund your wallet</h3><p>Add money by bank transfer or card. You always see your balance.</p></div>
+      <div class="step rv d2"><h3>Pick an investment</h3><p>Browse by type, check the risk label, and enter an amount.</p></div>
+      <div class="step rv d3"><h3>Track and withdraw</h3><p>Watch your portfolio grow and cash out back to your bank.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- 15. LIVE MARKET TABLE -->
+<section class="sec alt" id="markets">
+  <div class="wrap">
+    <div class="sec-head rv"><span class="eyebrow">Markets</span><h2 class="h2">Prices at a glance</h2><p class="lead">Live catalogue prices. Log in to invest.</p></div>
+    <div class="tbl-wrap rv">
+      <table class="tbl">
+        <thead><tr><th>Asset</th><th>Type</th><th>Price</th><th>Change</th><th>Risk</th></tr></thead>
+        <tbody>
+                  <tr>
+            <td><span class="sym">NVL</span><strong>Novalite Technologies</strong></td>
+            <td>Stocks</td>
+            <td>$184.20</td>
+            <td><span class="chg up">▲ 1.84%</span></td>
+            <td><span class="risk Medium">Medium</span></td>
+          </tr>
+                  <tr>
+            <td><span class="sym">HRB</span><strong>Harbor &amp; Crest Bank</strong></td>
+            <td>Stocks</td>
+            <td>$62.45</td>
+            <td><span class="chg down">▼ 0.42%</span></td>
+            <td><span class="risk Low">Low</span></td>
+          </tr>
+                  <tr>
+            <td><span class="sym">SOL</span><strong>SolWind Energy</strong></td>
+            <td>Stocks</td>
+            <td>$41.10</td>
+            <td><span class="chg up">▲ 2.31%</span></td>
+            <td><span class="risk Medium">Medium</span></td>
+          </tr>
+                  <tr>
+            <td><span class="sym">FVW</span><strong>VertexCloud-Capital World Index ETF</strong></td>
+            <td>ETFs</td>
+            <td>$112.60</td>
+            <td><span class="chg up">▲ 0.67%</span></td>
+            <td><span class="risk Low">Low</span></td>
+          </tr>
+                  <tr>
+            <td><span class="sym">FVT</span><strong>VertexCloud-Capital Tech 100 ETF</strong></td>
+            <td>ETFs</td>
+            <td>$248.35</td>
+            <td><span class="chg up">▲ 1.12%</span></td>
+            <td><span class="risk Medium">Medium</span></td>
+          </tr>
+                  <tr>
+            <td><span class="sym">FVG</span><strong>VertexCloud-Capital Green Bond ETF</strong></td>
+            <td>ETFs</td>
+            <td>$48.90</td>
+            <td><span class="chg up">▲ 0.12%</span></td>
+            <td><span class="risk Low">Low</span></td>
+          </tr>
+                  <tr>
+            <td><span class="sym">BTC</span><strong>Bitcoin</strong></td>
+            <td>Crypto</td>
+            <td>$67,420.00</td>
+            <td><span class="chg up">▲ 2.76%</span></td>
+            <td><span class="risk High">High</span></td>
+          </tr>
+                  <tr>
+            <td><span class="sym">ETH</span><strong>Ethereum</strong></td>
+            <td>Crypto</td>
+            <td>$3,723.02</td>
+            <td><span class="chg down">▼ 0.73%</span></td>
+            <td><span class="risk High">High</span></td>
+          </tr>
+                </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- 16. FEATURED OPPORTUNITIES -->
+<section class="sec">
+  <div class="wrap">
+    <div class="sec-head rv"><span class="eyebrow">Featured now</span><h2 class="h2">Opportunities our team likes this month</h2></div>
+    <div class="grid g4">
+              <article class="opp rv d0">
+          <div class="opp-img"><img src="https://images.pexels.com/photos/590022/pexels-photo-590022.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=900" alt="Novalite Technologies" class="" loading="lazy" onerror="this.style.opacity=0"><span class="badge">Stocks</span></div>
+          <div class="opp-body">
+            <h3>Novalite Technologies</h3>
+            <p>Listed cloud and chip design company with steady revenue growth.</p>
+            <div class="opp-meta">
+              <div>Minimum<b>$50.00</b></div>
+              <div style="text-align:right">Today<b><span class="chg up">▲ 1.84%</span></b></div>
+            </div>
+          </div>
+        </article>
+              <article class="opp rv d1">
+          <div class="opp-img"><img src="https://images.pexels.com/photos/844124/pexels-photo-844124.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=900" alt="Bitcoin" class="" loading="lazy" onerror="this.style.opacity=0"><span class="badge">Crypto</span></div>
+          <div class="opp-body">
+            <h3>Bitcoin</h3>
+            <p>The largest digital currency by market value.</p>
+            <div class="opp-meta">
+              <div>Minimum<b>$10.00</b></div>
+              <div style="text-align:right">Today<b><span class="chg up">▲ 2.76%</span></b></div>
+            </div>
+          </div>
+        </article>
+              <article class="opp rv d2">
+          <div class="opp-img"><img src="https://images.pexels.com/photos/2252584/pexels-photo-2252584.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=900" alt="Cassava Value Farm" class="" loading="lazy" onerror="this.style.opacity=0"><span class="badge">Agriculture</span></div>
+          <div class="opp-body">
+            <h3>Cassava Value Farm</h3>
+            <p>Cassava grown and processed into starch on a 400-hectare farm.</p>
+            <div class="opp-meta">
+              <div>Minimum<b>$100.00</b></div>
+              <div style="text-align:right">12 months<b>18% total</b></div>
+            </div>
+          </div>
+        </article>
+              <article class="opp rv d3">
+          <div class="opp-img"><img src="https://images.pexels.com/photos/259588/pexels-photo-259588.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=900" alt="Lakeview Residential REIT" class="" loading="lazy" onerror="this.style.opacity=0"><span class="badge">Real Estate</span></div>
+          <div class="opp-body">
+            <h3>Lakeview Residential REIT</h3>
+            <p>Rental income from a portfolio of residential apartments.</p>
+            <div class="opp-meta">
+              <div>Minimum<b>$200.00</b></div>
+              <div style="text-align:right">24 months<b>24% total</b></div>
+            </div>
+          </div>
+        </article>
+          </div>
+  </div>
+</section>
+
+<!-- 17. WHY FINVEST -->
+<section class="sec alt">
+  <div class="wrap">
+    <div class="sec-head center rv"><span class="eyebrow">Why VertexCloud-Capital</span><h2 class="h2">Everything you need, nothing you do not</h2></div>
+    <div class="grid g3">
+              <div class="card rv d0"><div class="ico"><i class="bi bi-wallet2"></i></div><h3>One wallet</h3><p>Fund once and move money between all five asset types.</p></div>
+              <div class="card rv d1"><div class="ico"><i class="bi bi-eye"></i></div><h3>Clear risk labels</h3><p>Low, medium or high shown on every single product.</p></div>
+              <div class="card rv d2"><div class="ico"><i class="bi bi-currency-exchange"></i></div><h3>Low minimums</h3><p>Start with as little as $10 and add when you are ready.</p></div>
+              <div class="card rv d0"><div class="ico"><i class="bi bi-bar-chart-line"></i></div><h3>Simple tracking</h3><p>One page shows what you own, what it is worth and your gain.</p></div>
+              <div class="card rv d1"><div class="ico"><i class="bi bi-journal-text"></i></div><h3>Free learning</h3><p>Short guides that explain each asset in everyday language.</p></div>
+              <div class="card rv d2"><div class="ico"><i class="bi bi-headset"></i></div><h3>Human support</h3><p>Real people answer chat every day of the week.</p></div>
+          </div>
+  </div>
+</section>
+
+<!-- 18. DASHBOARD PREVIEW -->
+<section class="sec">
+  <div class="wrap split">
+    <div class="rv">
+      <span class="eyebrow">Your dashboard</span>
+      <h2 class="h2">See your whole portfolio on a single screen</h2>
+      <p class="lead">Balance, gains, what you own and recent activity. No jargon and no hidden menus.</p>
+      <ul class="ticks"><li><i class="bi bi-check-circle-fill"></i> Total value and gain at the top</li><li><i class="bi bi-check-circle-fill"></i> Deposit, withdraw and invest in one tap</li><li><i class="bi bi-check-circle-fill"></i> Allocation chart shows how your money is spread</li></ul>
+      <a href="#" class="btn-fv ghost">Open your dashboard</a>
+    </div>
+    <div class="mock rv d1">
+      <div class="mock-bar"><i></i><i></i><i></i></div>
+      <div class="mock-body">
+        <div class="mock-side"><b>VertexCloud-Capital</b><span>Overview</span><span>Invest</span><span>Portfolio</span><span>Wallet</span></div>
+        <div class="mock-main">
+          <div class="mock-bal"><small>Total balance</small><b>$18,420.50</b><small style="color:#9fe3bd">▲ 8.24% this month</small></div>
+          <div class="bars"><span style="height:40%"></span><span style="height:55%"></span><span style="height:48%"></span><span style="height:70%"></span><span style="height:62%"></span><span style="height:85%"></span><span style="height:78%"></span><span style="height:96%"></span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 19. MOBILE APP -->
+<section class="sec dark">
+  <div class="wrap split flip">
+    <div class="rv">
+      <div class="phone">
+        <div class="phone-top"><small>Portfolio value</small><b>$12,486.20</b><small style="color:#9fe3bd">▲ +$412.30 today</small></div>
+        <div class="phone-list">
+          <div class="phone-row"><span>Novalite Tech</span><b>$1,820</b></div>
+          <div class="phone-row"><span>World Index ETF</span><b>$2,950</b></div>
+          <div class="phone-row"><span>Cassava Farm</span><b>$1,180</b></div>
+          <div class="phone-row" style="border:0"><span>Lakeview REIT</span><b>$2,740</b></div>
+        </div>
+        <div class="phone-nav"><i class="bi bi-house-fill on"></i><i class="bi bi-graph-up"></i><i class="bi bi-wallet2"></i><i class="bi bi-person"></i></div>
+      </div>
+    </div>
+    <div class="rv d1">
+      <span class="eyebrow">Mobile first</span>
+      <h2 class="h2">Your investments fit in your pocket</h2>
+      <p class="lead">The VertexCloud-Capital dashboard is designed for phones first, with a thumb-friendly bottom menu, large buttons and numbers you can read at a glance.</p>
+      <ul class="ticks"><li><i class="bi bi-check-circle-fill" style="color:#8fb4e6"></i> Bottom navigation for one-hand use</li><li><i class="bi bi-check-circle-fill" style="color:#8fb4e6"></i> Invest in under a minute</li><li><i class="bi bi-check-circle-fill" style="color:#8fb4e6"></i> Install the app on your phone for a home-screen shortcut</li></ul>
+      <div class="d-flex flex-wrap gap-2" style="margin-top:8px">
+        <a href="#" class="btn-fv white">Start on your phone</a>
+        <button type="button" class="btn-fv ghost" style="color:#fff;border-color:#fff" data-install=""><i class="bi bi-download"></i> Download app</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 20. RETURNS CALCULATOR -->
+<section class="sec" id="calculator">
+  <div class="wrap">
+    <div class="sec-head rv"><span class="eyebrow">Calculator</span><h2 class="h2">See what steady investing could become</h2><p class="lead">An illustration only. Real returns vary and are never guaranteed.</p></div>
+    <div class="calc rv" id="calc">
+      <div class="calc-in">
+        <div class="fld"><label>Starting amount <span id="v_init">$2,000</span></label><input type="range" id="c_init" min="100" max="20000" step="100" value="2000"></div>
+        <div class="fld"><label>Monthly top-up <span id="v_month">$150</span></label><input type="range" id="c_month" min="0" max="2000" step="25" value="150"></div>
+        <div class="fld"><label>Time <span id="v_years">10 yrs</span></label><input type="range" id="c_years" min="1" max="30" step="1" value="10"></div>
+        <div class="fld"><label>Assumed yearly growth</label>
+          <select id="c_class"><option value="4">Cautious - 4%</option><option value="7" selected="">Balanced - 7%</option><option value="10">Growth - 10%</option><option value="16">Farm and property - 16%</option></select></div>
+      </div>
+      <div class="calc-out">
+        <span>After <span id="o_years">10</span> years, investing $<span id="o_m">150</span> a month</span>
+        <b id="o_total">$29,982</b>
+        <div class="flex justify-between"><span>You put in<br><strong style="color:#fff" id="o_put">$20,000</strong></span><span style="text-align:right">Growth<br><strong style="color:#9fe3bd" id="o_gain">$9,982</strong></span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 21. RISK PROFILES -->
+<section class="sec alt">
+  <div class="wrap">
+    <div class="sec-head center rv"><span class="eyebrow">Find your style</span><h2 class="h2">Which investor are you?</h2></div>
+    <div class="grid g3">
+      <div class="price rv"><span class="eyebrow">Cautious</span><big>Steady</big><p class="text-slate-500">Prefers stability. Leans on bond ETFs, short farm plans and rental property.</p><ul class="ticks"><li><i class="bi bi-check-circle-fill"></i> Mostly low risk</li><li><i class="bi bi-check-circle-fill"></i> Smaller ups and downs</li></ul></div>
+      <div class="price hot rv d1"><span class="eyebrow">Balanced</span><big>Blended</big><p class="text-slate-500">A mix of world ETFs, quality stocks and fixed-term real assets.</p><ul class="ticks"><li><i class="bi bi-check-circle-fill"></i> Low and medium risk</li><li><i class="bi bi-check-circle-fill"></i> Growth with a cushion</li></ul></div>
+      <div class="price rv d2"><span class="eyebrow">Growth</span><big>Ambitious</big><p class="text-slate-500">Accepts big swings for higher potential. Adds tech and crypto.</p><ul class="ticks"><li><i class="bi bi-check-circle-fill"></i> Includes high risk</li><li><i class="bi bi-check-circle-fill"></i> Long time horizon</li></ul></div>
+    </div>
+  </div>
+</section>
+
+<!-- 22. SECURITY -->
+<section class="sec" id="security">
+  <div class="wrap split">
+    <div class="rv">
+      <span class="eyebrow">Security</span>
+      <h2 class="h2">Your money and your data are protected</h2>
+      <p class="lead">We use bank-grade safeguards so you can focus on investing.</p>
+      <div class="grid g2" style="margin-top:26px">
+                  <div class="flex items-center gap-3"><div class="ico" style="margin:0"><i class="bi bi-lock"></i></div><strong>Encrypted data</strong></div>
+                  <div class="flex items-center gap-3"><div class="ico" style="margin:0"><i class="bi bi-fingerprint"></i></div><strong>Two-step login</strong></div>
+                  <div class="flex items-center gap-3"><div class="ico" style="margin:0"><i class="bi bi-bank"></i></div><strong>Segregated funds</strong></div>
+                  <div class="flex items-center gap-3"><div class="ico" style="margin:0"><i class="bi bi-clipboard-check"></i></div><strong>Annual audits</strong></div>
+              </div>
+    </div>
+    <div class="split-img rv d1"><img src="https://images.pexels.com/photos/60504/pexels-photo-60504.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=900" alt="Secure digital protection" class="" loading="lazy" onerror="this.style.opacity=0"></div>
+  </div>
+</section>
+
+<!-- 23. FEES -->
+<section class="sec alt">
+  <div class="wrap">
+    <div class="sec-head center rv"><span class="eyebrow">Fees</span><h2 class="h2">Costs you can count on one hand</h2></div>
+    <div class="grid g4">
+              <div class="price rv d0" style="text-align:center"><big>$0</big><span class="text-slate-500">Account opening</span></div>
+              <div class="price rv d1" style="text-align:center"><big>0.5%</big><span class="text-slate-500">Stocks and ETFs per trade</span></div>
+              <div class="price rv d2" style="text-align:center"><big>1.0%</big><span class="text-slate-500">Crypto per trade</span></div>
+              <div class="price rv d0" style="text-align:center"><big>1.5%</big><span class="text-slate-500">Farm and property yearly</span></div>
+          </div>
+  </div>
+</section>
+
+<!-- 24. TESTIMONIALS -->
+<section class="sec">
+  <div class="wrap">
+    <div class="sec-head center rv"><span class="eyebrow">Investor stories</span><h2 class="h2">What our community says</h2></div>
+    <div class="slider rv">
+      <div class="slides">
+                  <div class="slide"><div class="quote"><p>“I started with $50 in an ETF and now I fund a cassava project every season. It all sits in one place.”</p><div class="who"><img src="https://images.pexels.com/photos/415829/pexels-photo-415829.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=300" alt="Chidi N." class="" loading="lazy" onerror="this.style.opacity=0"><span><strong style="color:#14233b">Chidi N.</strong><br>Teacher, Enugu</span></div></div></div>
+                  <div class="slide"><div class="quote"><p>“The risk labels made it easy. I knew exactly what I was buying before I tapped invest.”</p><div class="who"><img src="https://images.pexels.com/photos/2379004/pexels-photo-2379004.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=300" alt="Fatima A." class="" loading="lazy" onerror="this.style.opacity=0"><span><strong style="color:#14233b">Fatima A.</strong><br>Nurse, Abuja</span></div></div></div>
+                  <div class="slide"><div class="quote"><p>“I like that I can see my property units and my Bitcoin on the same screen.”</p><div class="who"><img src="https://images.pexels.com/photos/774909/pexels-photo-774909.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=300" alt="David O." class="" loading="lazy" onerror="this.style.opacity=0"><span><strong style="color:#14233b">David O.</strong><br>Engineer, Lagos</span></div></div></div>
+                  <div class="slide"><div class="quote"><p>“Withdrawals were simple and quick. The app is clean and honest.”</p><div class="who"><img src="https://images.pexels.com/photos/1239291/pexels-photo-1239291.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=300" alt="Ngozi E." class="" loading="lazy" onerror="this.style.opacity=0"><span><strong style="color:#14233b">Ngozi E.</strong><br>Designer, Port Harcourt</span></div></div></div>
+              </div>
+      <div class="dots"><button class="on"></button><button></button><button></button><button></button></div>
+    </div>
+  </div>
+</section>
+
+<!-- 25. INSIGHTS -->
+<section class="sec alt" id="insights">
+  <div class="wrap">
+    <div class="sec-head rv"><span class="eyebrow">News and insights</span><h2 class="h2">Latest from the VertexCloud-Capital desk</h2></div>
+    <div class="grid g3">
+              <article class="post rv d0"><div class="post-img"><img src="https://images.pexels.com/photos/669610/pexels-photo-669610.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=700" alt="Why spreading your money beats picking winners" class="" loading="lazy" onerror="this.style.opacity=0"></div><div class="post-b"><small>Markets · 5 min read</small><h3>Why spreading your money beats picking winners</h3></div></article>
+              <article class="post rv d1"><div class="post-img"><img src="https://images.pexels.com/photos/3943716/pexels-photo-3943716.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=700" alt="How farm investments actually pay you back" class="" loading="lazy" onerror="this.style.opacity=0"></div><div class="post-b"><small>Agriculture · 6 min read</small><h3>How farm investments actually pay you back</h3></div></article>
+              <article class="post rv d2"><div class="post-img"><img src="https://images.pexels.com/photos/2102416/pexels-photo-2102416.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=700" alt="Rental income versus land banking: which fits you?" class="" loading="lazy" onerror="this.style.opacity=0"></div><div class="post-b"><small>Property · 4 min read</small><h3>Rental income versus land banking: which fits you?</h3></div></article>
+          </div>
+  </div>
+</section>
+
+<!-- 26. ACADEMY -->
+<section class="sec">
+  <div class="wrap split flip">
+    <div class="split-img rv"><img src="https://images.pexels.com/photos/5905700/pexels-photo-5905700.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=900" alt="Learning about investing" class="" loading="lazy" onerror="this.style.opacity=0"></div>
+    <div class="rv d1">
+      <span class="eyebrow">VertexCloud-Capital Academy</span>
+      <h2 class="h2">Learn the basics in short, friendly lessons</h2>
+      <p class="lead">Ten-minute guides cover budgeting, risk, diversification and how each asset class works.</p>
+      <ul class="ticks"><li><i class="bi bi-check-circle-fill"></i> Beginner to confident in four weeks</li><li><i class="bi bi-check-circle-fill"></i> Weekly live Q&amp;A sessions</li><li><i class="bi bi-check-circle-fill"></i> Free for every account holder</li></ul>
+      <a href="#" class="btn-fv ghost">Join the academy</a>
+    </div>
+  </div>
+</section>
+
+<!-- 27. COMPARISON -->
+<section class="sec alt">
+  <div class="wrap">
+    <div class="sec-head center rv"><span class="eyebrow">Compare</span><h2 class="h2">VertexCloud-Capital versus the traditional route</h2></div>
+    <div class="tbl-wrap rv">
+      <table class="tbl cmp">
+        <thead><tr><th></th><th>VertexCloud-Capital</th><th>Traditional broker</th></tr></thead>
+        <tbody>
+                  <tr><td>Minimum to start</td>
+            <td>$10</td>
+            <td>$500+</td></tr>
+                  <tr><td>Stocks, crypto, farms and property together</td>
+            <td><i class="bi bi-check-circle-fill yes"></i></td>
+            <td><i class="bi bi-x-circle-fill no"></i></td></tr>
+                  <tr><td>Plain-language risk labels</td>
+            <td><i class="bi bi-check-circle-fill yes"></i></td>
+            <td><i class="bi bi-x-circle-fill no"></i></td></tr>
+                  <tr><td>Mobile-first dashboard</td>
+            <td><i class="bi bi-check-circle-fill yes"></i></td>
+            <td><i class="bi bi-x-circle-fill no"></i></td></tr>
+                  <tr><td>Free learning academy</td>
+            <td><i class="bi bi-check-circle-fill yes"></i></td>
+            <td><i class="bi bi-x-circle-fill no"></i></td></tr>
+                </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- 28. FAQ -->
+<section class="sec" id="faq">
+  <div class="wrap" style="max-width:860px">
+    <div class="sec-head center rv"><span class="eyebrow">FAQ</span><h2 class="h2">Questions we hear most</h2></div>
+    <div class="rv">
+              <details class="faq"><summary>How much do I need to start?</summary><p>You can begin with as little as $10 for crypto, $20 for ETFs and $100 for farm projects.</p></details>
+              <details class="faq"><summary>Can I lose money?</summary><p>Yes. All investments carry risk and you can get back less than you invest. Each product shows a Low, Medium or High risk label.</p></details>
+              <details class="faq"><summary>How do farm and property returns work?</summary><p>The expected return and term are shown before you invest. Payout happens at the end of the term, or earlier if you redeem.</p></details>
+              <details class="faq"><summary>How do I withdraw?</summary><p>Open your wallet, choose Withdraw and enter an amount. Your bank receives it after our team confirms the request, usually within one working day.</p></details>
+              <details class="faq"><summary>How do I install the app?</summary><p>On your phone, tap Download / Install app in the menu. On Android use Install app or Add to Home screen; on iPhone use Share then Add to Home Screen.</p></details>
+          </div>
+  </div>
+</section>
+
+<!-- 29. NEWSLETTER -->
+<section class="sec" style="padding-top:0">
+  <div class="wrap">
+    <div class="news rv">
+      <div><h2 class="h2" style="font-size:30px">Get one useful money idea each week</h2><p class="lead">Free tips, market summaries and new project alerts. No spam.</p></div>
+      <form id="newsForm"><input type="text" placeholder="Your name" required=""><input type="email" placeholder="you@email.com" required=""><button class="btn-fv" type="submit">Subscribe</button></form>
+    </div>
+  </div>
+</section>
+
+<!-- 30. FINAL CTA -->
+<section class="sec" style="padding-top:0">
+  <div class="wrap">
+    <div class="cta rv">
+      <div class="cta-t"><h2>Your first investment is a few taps away</h2><p>Open an account, add funds and start building a portfolio that fits your goals.</p><a href="#" class="btn-fv white">Open free account <i class="bi bi-arrow-right"></i></a> <a href="#" class="btn-fv ghost" style="color:#fff;border-color:#fff">Log in</a></div>
+      <div class="cta-i"><img src="https://images.pexels.com/photos/3760067/pexels-photo-3760067.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=1200" alt="Investor using VertexCloud-Capital" class="" loading="lazy" onerror="this.style.opacity=0"></div>
+    </div>
+  </div>
+</section>
+
+<!-- 31. FOOTER (includes risk warning) -->
+<footer class="foot">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <div class="logo"><img src="https://devionicdemo.name.ng/finvest/assets/uploads/logo_dark-55bd1484817a.png" alt="VertexCloud-Capital" class="brand-img"></div>
+        <p style="max-width:300px;line-height:1.7">One simple place to invest in stocks, ETFs, crypto, farmland and property.</p>
+      </div>
+      <div><h4>Invest</h4><a href="#classes">Stocks</a><a href="#classes">ETFs</a><a href="#classes">Crypto</a><a href="#classes">Agriculture</a><a href="#classes">Real estate</a></div>
+      <div><h4>Company</h4><a href="#about">About us</a><a href="#security">Security</a><a href="#insights">Insights</a><a href="#faq">Help centre</a></div>
+      <div><h4>Account</h4><a href="#">Log in</a><a href="#">Open account</a><a href="/finvest/dashboard/index.php">Dashboard</a></div>
+    </div>
+    <div class="risk-note">
+      Capital at risk. The value of investments can go down as well as up and you may get back less than you put in. Crypto assets are highly volatile. Agriculture and real estate holdings may be hard to sell early. Past performance is not a guide to future returns.
+      © 2026 VertexCloud-Capital. All rights reserved.
+    </div>
+  </div>
+</footer>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://devionicdemo.name.ng/finvest/assets/js/pwa.js"></script>
+<script src="https://devionicdemo.name.ng/finvest/assets/js/main.js"></script>
+<script>window.FV_ACTIVITY=[{"name":"Pedro Santos","country":"Portugal","flag":"https:\/\/flagcdn.com\/w80\/pt.png","photo":"https:\/\/randomuser.me\/api\/portraits\/men\/80.jpg","text":"just received a \u003Cb\u003E$50\u003C\/b\u003E plan payout"},{"name":"Grace Wanjiru","country":"Kenya","flag":"https:\/\/flagcdn.com\/w80\/ke.png","photo":"https:\/\/randomuser.me\/api\/portraits\/women\/58.jpg","text":"just invested \u003Cb\u003E$250\u003C\/b\u003E in \u003Cb\u003Estocks\u003C\/b\u003E"},{"name":"Liam Walker","country":"Canada","flag":"https:\/\/flagcdn.com\/w80\/ca.png","photo":"https:\/\/randomuser.me\/api\/portraits\/men\/71.jpg","text":"just deposited \u003Cb\u003E$50\u003C\/b\u003E"},{"name":"Ahmed Hassan","country":"Egypt","flag":"https:\/\/flagcdn.com\/w80\/eg.png","photo":"https:\/\/randomuser.me\/api\/portraits\/men\/61.jpg","text":"just invested \u003Cb\u003E$120\u003C\/b\u003E in \u003Cb\u003EETFs\u003C\/b\u003E"},{"name":"Sara Lindqvist","country":"Sweden","flag":"https:\/\/flagcdn.com\/w80\/se.png","photo":"https:\/\/randomuser.me\/api\/portraits\/women\/21.jpg","text":"just received a \u003Cb\u003E$3,500\u003C\/b\u003E plan payout"},{"name":"Nia Johnson","country":"United States","flag":"https:\/\/flagcdn.com\/w80\/us.png","photo":"https:\/\/randomuser.me\/api\/portraits\/women\/3.jpg","text":"just invested \u003Cb\u003E$100\u003C\/b\u003E in \u003Cb\u003Ecrypto\u003C\/b\u003E"},{"name":"Mei Tanaka","country":"Japan","flag":"https:\/\/flagcdn.com\/w80\/jp.png","photo":"https:\/\/randomuser.me\/api\/portraits\/women\/26.jpg","text":"just invested \u003Cb\u003E$500\u003C\/b\u003E in \u003Cb\u003Ereal estate\u003C\/b\u003E"},{"name":"Aisha Khan","country":"Pakistan","flag":"https:\/\/flagcdn.com\/w80\/pk.png","photo":"https:\/\/randomuser.me\/api\/portraits\/women\/65.jpg","text":"just deposited \u003Cb\u003E$100\u003C\/b\u003E"},{"name":"Hannah Cole","country":"Australia","flag":"https:\/\/flagcdn.com\/w80\/au.png","photo":"https:\/\/randomuser.me\/api\/portraits\/women\/39.jpg","text":"just deposited \u003Cb\u003E$3,500\u003C\/b\u003E"},{"name":"Priya Nair","country":"India","flag":"https:\/\/flagcdn.com\/w80\/in.png","photo":"https:\/\/randomuser.me\/api\/portraits\/women\/33.jpg","text":"just joined VertexCloud-Capital"},{"name":"Daniel Mwangi","country":"Kenya","flag":"https:\/\/flagcdn.com\/w80\/ke.png","photo":"https:\/\/randomuser.me\/api\/portraits\/men\/49.jpg","text":"just invested \u003Cb\u003E$750\u003C\/b\u003E in \u003Cb\u003Ecrypto\u003C\/b\u003E"},{"name":"Noah Martin","country":"United States","flag":"https:\/\/flagcdn.com\/w80\/us.png","photo":"https:\/\/randomuser.me\/api\/portraits\/men\/5.jpg","text":"just deposited \u003Cb\u003E$2,000\u003C\/b\u003E"},{"name":"Ama Boateng","country":"Ghana","flag":"https:\/\/flagcdn.com\/w80\/gh.png","photo":"https:\/\/randomuser.me\/api\/portraits\/women\/14.jpg","text":"just deposited \u003Cb\u003E$1,200\u003C\/b\u003E"},{"name":"Camille Dubois","country":"France","flag":"https:\/\/flagcdn.com\/w80\/fr.png","photo":"https:\/\/randomuser.me\/api\/portraits\/women\/51.jpg","text":"just received a \u003Cb\u003E$100\u003C\/b\u003E plan payout"},{"name":"Tariq Rahman","country":"Bangladesh","flag":"https:\/\/flagcdn.com\/w80\/bd.png","photo":"https:\/\/randomuser.me\/api\/portraits\/men\/38.jpg","text":"just received a \u003Cb\u003E$2,000\u003C\/b\u003E plan payout"},{"name":"Chloe Martin","country":"Ireland","flag":"https:\/\/flagcdn.com\/w80\/ie.png","photo":"https:\/\/randomuser.me\/api\/portraits\/women\/66.jpg","text":"just invested \u003Cb\u003E$250\u003C\/b\u003E in \u003Cb\u003Estocks\u003C\/b\u003E"},{"name":"Kwame Mensah","country":"Ghana","flag":"https:\/\/flagcdn.com\/w80\/gh.png","photo":"https:\/\/randomuser.me\/api\/portraits\/men\/23.jpg","text":"just invested \u003Cb\u003E$750\u003C\/b\u003E in \u003Cb\u003Ecrypto\u003C\/b\u003E"},{"name":"Rafael Costa","country":"Brazil","flag":"https:\/\/flagcdn.com\/w80\/br.png","photo":"https:\/\/randomuser.me\/api\/portraits\/men\/27.jpg","text":"just withdrew \u003Cb\u003E$50\u003C\/b\u003E"},{"name":"Elena Petrova","country":"Poland","flag":"https:\/\/flagcdn.com\/w80\/pl.png","photo":"https:\/\/randomuser.me\/api\/portraits\/women\/83.jpg","text":"just joined VertexCloud-Capital"},{"name":"Min-jun Park","country":"South Korea","flag":"https:\/\/flagcdn.com\/w80\/kr.png","photo":"https:\/\/randomuser.me\/api\/portraits\/men\/36.jpg","text":"just invested \u003Cb\u003E$300\u003C\/b\u003E in \u003Cb\u003Eagriculture\u003C\/b\u003E"},{"name":"Lea Müller","country":"Switzerland","flag":"https:\/\/flagcdn.com\/w80\/ch.png","photo":"https:\/\/randomuser.me\/api\/portraits\/women\/47.jpg","text":"just invested \u003Cb\u003E$500\u003C\/b\u003E in \u003Cb\u003Ereal estate\u003C\/b\u003E"},{"name":"Jack Wilson","country":"United Kingdom","flag":"https:\/\/flagcdn.com\/w80\/gb.png","photo":"https:\/\/randomuser.me\/api\/portraits\/men\/90.jpg","text":"just joined VertexCloud-Capital"},{"name":"Mateo García","country":"Mexico","flag":"https:\/\/flagcdn.com\/w80\/mx.png","photo":"https:\/\/randomuser.me\/api\/portraits\/men\/64.jpg","text":"just invested \u003Cb\u003E$2,000\u003C\/b\u003E in \u003Cb\u003Estocks\u003C\/b\u003E"},{"name":"Sofia Rossi","country":"Italy","flag":"https:\/\/flagcdn.com\/w80\/it.png","photo":"https:\/\/randomuser.me\/api\/portraits\/women\/8.jpg","text":"just withdrew \u003Cb\u003E$250\u003C\/b\u003E"},{"name":"Hans Becker","country":"Germany","flag":"https:\/\/flagcdn.com\/w80\/de.png","photo":"https:\/\/randomuser.me\/api\/portraits\/men\/54.jpg","text":"just received a \u003Cb\u003E$120\u003C\/b\u003E plan payout"},{"name":"Yusuf Demir","country":"Turkiye","flag":"https:\/\/flagcdn.com\/w80\/tr.png","photo":"https:\/\/randomuser.me\/api\/portraits\/men\/46.jpg","text":"just joined VertexCloud-Capital"},{"name":"Ingrid Larsen","country":"Norway","flag":"https:\/\/flagcdn.com\/w80\/no.png","photo":"https:\/\/randomuser.me\/api\/portraits\/women\/29.jpg","text":"just invested \u003Cb\u003E$500\u003C\/b\u003E in \u003Cb\u003Ereal estate\u003C\/b\u003E"},{"name":"Chiamaka Eze","country":"Nigeria","flag":"https:\/\/flagcdn.com\/w80\/ng.png","photo":"https:\/\/randomuser.me\/api\/portraits\/women\/44.jpg","text":"just invested \u003Cb\u003E$1,200\u003C\/b\u003E in \u003Cb\u003EETFs\u003C\/b\u003E"},{"name":"Zainab Bello","country":"Nigeria","flag":"https:\/\/flagcdn.com\/w80\/ng.png","photo":"https:\/\/randomuser.me\/api\/portraits\/women\/72.jpg","text":"just withdrew \u003Cb\u003E$100\u003C\/b\u003E"},{"name":"Lucas Silva","country":"Brazil","flag":"https:\/\/flagcdn.com\/w80\/br.png","photo":"https:\/\/randomuser.me\/api\/portraits\/men\/41.jpg","text":"just joined VertexCloud-Capital"},{"name":"Fatima Al-Sayed","country":"United Arab Emirates","flag":"https:\/\/flagcdn.com\/w80\/ae.png","photo":"https:\/\/randomuser.me\/api\/portraits\/women\/17.jpg","text":"just invested \u003Cb\u003E$3,500\u003C\/b\u003E in \u003Cb\u003Eagriculture\u003C\/b\u003E"},{"name":"Adams Scott","country":"United States","flag":"https:\/\/flagcdn.com\/w80\/us.png","photo":"https:\/\/randomuser.me\/api\/portraits\/men\/32.jpg","text":"just invested \u003Cb\u003E$50\u003C\/b\u003E in \u003Cb\u003Ereal estate\u003C\/b\u003E"},{"name":"Emeka Obi","country":"Nigeria","flag":"https:\/\/flagcdn.com\/w80\/ng.png","photo":"https:\/\/randomuser.me\/api\/portraits\/men\/7.jpg","text":"just withdrew \u003Cb\u003E$120\u003C\/b\u003E"},{"name":"Thabo Dlamini","country":"South Africa","flag":"https:\/\/flagcdn.com\/w80\/za.png","photo":"https:\/\/randomuser.me\/api\/portraits\/men\/18.jpg","text":"just invested \u003Cb\u003E$300\u003C\/b\u003E in \u003Cb\u003Eagriculture\u003C\/b\u003E"},{"name":"Olivia Brown","country":"New Zealand","flag":"https:\/\/flagcdn.com\/w80\/nz.png","photo":"https:\/\/randomuser.me\/api\/portraits\/women\/12.jpg","text":"just invested \u003Cb\u003E$1,200\u003C\/b\u003E in \u003Cb\u003EETFs\u003C\/b\u003E"},{"name":"Oliver Hughes","country":"United Kingdom","flag":"https:\/\/flagcdn.com\/w80\/gb.png","photo":"https:\/\/randomuser.me\/api\/portraits\/men\/12.jpg","text":"just withdrew \u003Cb\u003E$300\u003C\/b\u003E"}];</script>
+<script src="https://devionicdemo.name.ng/finvest/assets/js/activity.js"></script><div class="act-pop" role="status" aria-live="polite" style="--dur: 6000ms;"></div>
+<script type="module" src="https://static.cloudflareinsights.com/beacon.min.js/vce701823e78c4301a35b7e07294d87301792088814092" integrity="sha512-UKNk8GbxkABxKcXYuLkO16EleLGUkcvJWtpSNmExE0Too3ZaFAxTscNWEc1OdAv5/BikHawapSCaiD2XCmp+Bw==" data-cf-beacon="{&quot;version&quot;:&quot;2024.11.0&quot;,&quot;token&quot;:&quot;f7053d053a7d49c98684455575551b28&quot;,&quot;r&quot;:1,&quot;spa&quot;:2}" crossorigin="anonymous"></script>
+
+
+</body></html>
